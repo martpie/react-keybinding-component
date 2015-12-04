@@ -21,12 +21,11 @@ class KeybindingComponent extends Component {
     }
 
     componentDidMount() {
-        var self = this;
-        this.props.elem.addEventListener(this.props.type, this.onKey);
+        if(typeof this.props.target === 'string') document.querySelector(this.props.target).addEventListener(this.props.type, this.onKey);
+        else if(typeof this.props.target === 'object') this.props.target.addEventListener(this.props.type, this.onKey);
     }
 
     componentWillUnmount() {
-        var self = this;
         this.props.elem.removeEventListener(this.props.type, this.onKey);
     }
 }
@@ -41,7 +40,7 @@ KeybindingComponent.defaultProps = {
 KeybindingComponent.propTypes = {
     onKey                : React.PropTypes.func,
     type                 : React.PropTypes.string,
-    target               : React.PropTypes.object,
+    target               : React.PropTypes.oneOfType([React.PropTypes.string, React.PropTypes.object ]),
     preventInputConflict : React.PropTypes.bool
 };
 
