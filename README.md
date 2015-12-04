@@ -34,3 +34,4 @@ All properties are optional.
 | onKey              | the function executed after a key event     | () => {}      |
 | type               | keyup or keydown                            | `'keydown'`   |
 | defaultValue       | the element you want to attach the event to | document      |
+| preventInputConflict | prevent onKey from firing if you have an onChange on an input | `false` |

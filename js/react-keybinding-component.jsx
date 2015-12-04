@@ -17,7 +17,7 @@ class KeybindingComponent extends Component {
     }
 
     onKey(e) {
-        this.props.onKey(e);
+        if(!(this.props.preventInputConflict && (e.target.tagName.toLowerCase() === 'input' || e.target.tagName.toLowerCase() === 'textarea'))) this.props.onKey(e);
     }
 
     componentDidMount() {
@@ -32,15 +32,17 @@ class KeybindingComponent extends Component {
 }
 
 KeybindingComponent.defaultProps = {
-    onKey :  () => {},
-    type  : 'keydown',
-    elem  :  document
+    onKey                :  () => {},
+    type                 : 'keydown',
+    target               :  document,
+    preventInputConflict :  false
 };
 
 KeybindingComponent.propTypes = {
-    onKey : React.PropTypes.func,
-    type  : React.PropTypes.string,
-    elem  : React.PropTypes.object
+    onKey                : React.PropTypes.func,
+    type                 : React.PropTypes.string,
+    target               : React.PropTypes.object,
+    preventInputConflict : React.PropTypes.bool
 };
 
 export default KeybindingComponent;

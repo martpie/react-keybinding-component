@@ -40,7 +40,7 @@ var KeybindingComponent = (function (_Component) {
     }, {
         key: 'onKey',
         value: function onKey(e) {
-            this.props.onKey(e);
+            if (!(this.props.preventInputConflict && (e.target.tagName.toLowerCase() === 'input' || e.target.tagName.toLowerCase() === 'textarea'))) this.props.onKey(e);
         }
     }, {
         key: 'componentDidMount',
@@ -62,13 +62,15 @@ var KeybindingComponent = (function (_Component) {
 KeybindingComponent.defaultProps = {
     onKey: function onKey() {},
     type: 'keydown',
-    elem: document
+    target: document,
+    preventInputConflict: false
 };
 
 KeybindingComponent.propTypes = {
     onKey: _react2.default.PropTypes.func,
     type: _react2.default.PropTypes.string,
-    elem: _react2.default.PropTypes.object
+    target: _react2.default.PropTypes.object,
+    preventInputConflict: _react2.default.PropTypes.bool
 };
 
 exports.default = KeybindingComponent;
