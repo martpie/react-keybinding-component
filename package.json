@@ -2,7 +2,7 @@
   "name": "react-keybinding-component",
   "version": "0.1.0",
   "description": "A React keybinding component, usable with es6, no mixin",
-  "main": "index.js",
+  "main": "dist/react-keybinding-component.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },

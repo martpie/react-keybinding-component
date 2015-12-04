@@ -3,7 +3,7 @@ A React keybinding component, usable with es6, no mixin
 
 ### Description
 
-react-keybinding-component is a component you can import in your app, that will help you set up keybindings in your app. For the moment, only simple key events are supported (one key only, `keyup`, `keydown`). It's just a less dirty way of using key events instead of having care og them with `componentDidMount()` in multiple components.
+react-keybinding-component is a component that will help you set up keybindings in your app. For the moment, only simple key events are supported (one key only, `keyup`, `keydown`). It's just a less dirty way of using key events instead of having care of them with `componentDidMount()` in multiple components.
 
 ### Examples
 
