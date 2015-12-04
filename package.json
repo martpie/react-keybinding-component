@@ -1,6 +1,6 @@
 {
   "name": "react-keybinding-component",
-  "version": "0.2.1",
+  "version": "0.3.0",
   "description": "A React keybinding component, usable with es6, no mixin",
   "main": "dist/react-keybinding-component.js",
   "scripts": {
