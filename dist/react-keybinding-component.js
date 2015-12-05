@@ -52,7 +52,7 @@ var KeybindingComponent = (function (_Component) {
     }, {
         key: 'componentWillUnmount',
         value: function componentWillUnmount() {
-            this.props.elem.removeEventListener(this.props.type, this.onKey);
+            this.props.target.removeEventListener(this.props.type, this.onKey);
         }
     }]);
 

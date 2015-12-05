@@ -26,7 +26,7 @@ class KeybindingComponent extends Component {
     }
 
     componentWillUnmount() {
-        this.props.elem.removeEventListener(this.props.type, this.onKey);
+        this.props.target.removeEventListener(this.props.type, this.onKey);
     }
 }
 
