@@ -9,15 +9,15 @@ class KeybindingComponent extends Component {
         super(props);
         this.state = {};
         this.onKey = this.onKey.bind(this);
+        this.blacklistTargets = ['textarea', 'input', 'select'];
     }
 
     render() {
-
         return false;
     }
 
     onKey(e) {
-        if(!(this.props.preventInputConflict && (e.target.tagName.toLowerCase() === 'input' || e.target.tagName.toLowerCase() === 'textarea'))) this.props.onKey(e);
+        if(!(this.props.preventInputConflict && (e.target.tagName.toLowerCase().indexOf(this.blacklistTargets) > -1))) this.props.onKey(e);
     }
 
     componentDidMount() {
