@@ -34,4 +34,6 @@ All properties are optional.
 | onKey              | the function executed after a key event     | () => {}      |
 | type               | keyup or keydown                            | `'keydown'`   |
 | target             | the element you want to attach the event to, it can be an **existing** DOM element or a CSS selector (in that case, you will need to add a `tabIndex='0'` to your element, otherwise the event won't be caught) | `document`    |
-| preventInputConflict | prevent onKey from firing if you have an onChange on an input or a textarea | `false` |
+| preventInputConflict | prevent onKey from firing if you have an onChange on an input, a textarea or a select | `false` |
+| preventDefault     | prevent event default                       | `false` |
+| preventPropagation | prevent event propagation                   | `false` |

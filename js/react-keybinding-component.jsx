@@ -17,6 +17,8 @@ class KeybindingComponent extends Component {
     }
 
     onKey(e) {
+        if(this.props.preventDefault) e.preventDefault();
+        if(this.props.stopPropagation) e.stopPropagation();
         if(!(this.props.preventInputConflict && (e.target.tagName.toLowerCase().indexOf(this.blacklistTargets) > -1))) this.props.onKey(e);
     }
 
@@ -35,14 +37,18 @@ KeybindingComponent.defaultProps = {
     onKey                :  () => {},
     type                 : 'keydown',
     target               :  document,
-    preventInputConflict :  false
+    preventInputConflict :  false,
+    preventDefault       :  false,
+    stopPropagation      :  false
 };
 
 KeybindingComponent.propTypes = {
     onKey                : React.PropTypes.func,
     type                 : React.PropTypes.string,
     target               : React.PropTypes.oneOfType([React.PropTypes.string, React.PropTypes.object ]),
-    preventInputConflict : React.PropTypes.bool
+    preventInputConflict : React.PropTypes.bool,
+    preventDefault       : React.PropTypes.bool,
+    stopPropagation      : React.PropTypes.bool
 };
 
 export default KeybindingComponent;

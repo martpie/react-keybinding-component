@@ -30,19 +30,21 @@ var KeybindingComponent = (function (_Component) {
 
         _this.state = {};
         _this.onKey = _this.onKey.bind(_this);
+        _this.blacklistTargets = ['textarea', 'input', 'select'];
         return _this;
     }
 
     _createClass(KeybindingComponent, [{
         key: 'render',
         value: function render() {
-
             return false;
         }
     }, {
         key: 'onKey',
         value: function onKey(e) {
-            if (!(this.props.preventInputConflict && (e.target.tagName.toLowerCase() === 'input' || e.target.tagName.toLowerCase() === 'textarea'))) this.props.onKey(e);
+            if (this.props.preventDefault) e.preventDefault();
+            if (this.props.stopPropagation) e.stopPropagation();
+            if (!(this.props.preventInputConflict && e.target.tagName.toLowerCase().indexOf(this.blacklistTargets) > -1)) this.props.onKey(e);
         }
     }, {
         key: 'componentDidMount',
@@ -63,14 +65,18 @@ KeybindingComponent.defaultProps = {
     onKey: function onKey() {},
     type: 'keydown',
     target: document,
-    preventInputConflict: false
+    preventInputConflict: false,
+    preventDefault: false,
+    stopPropagation: false
 };
 
 KeybindingComponent.propTypes = {
     onKey: _react2.default.PropTypes.func,
     type: _react2.default.PropTypes.string,
     target: _react2.default.PropTypes.oneOfType([_react2.default.PropTypes.string, _react2.default.PropTypes.object]),
-    preventInputConflict: _react2.default.PropTypes.bool
+    preventInputConflict: _react2.default.PropTypes.bool,
+    preventDefault: _react2.default.PropTypes.bool,
+    stopPropagation: _react2.default.PropTypes.bool
 };
 
 exports.default = KeybindingComponent;
