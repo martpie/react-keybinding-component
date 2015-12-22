@@ -44,7 +44,7 @@ var KeybindingComponent = (function (_Component) {
         value: function onKey(e) {
             if (this.props.preventDefault) e.preventDefault();
             if (this.props.stopPropagation) e.stopPropagation();
-            if (!(this.props.preventInputConflict && e.target.tagName.toLowerCase().indexOf(this.blacklistTargets) > -1)) this.props.onKey(e);
+            if (!(this.props.preventInputConflict && this.blacklistTargets.indexOf(e.target.tagName.toLowerCase()) > -1)) this.props.onKey(e);
         }
     }, {
         key: 'componentDidMount',
