@@ -8,7 +8,7 @@ class KeybindingComponent extends Component {
         super(props);
         this.state = {};
         this.onKey = this.onKey.bind(this);
-        this.blacklistTargets = ['textarea', 'input', 'select'];
+        this.targetsBlacklist = ['textarea', 'input', 'select'];
     }
 
     render() {
@@ -18,7 +18,7 @@ class KeybindingComponent extends Component {
     onKey(e) {
         if(this.props.preventDefault) e.preventDefault();
         if(this.props.stopPropagation) e.stopPropagation();
-        if(!(this.props.preventInputConflict && (this.blacklistTargets.indexOf(e.target.tagName.toLowerCase()) > -1))) this.props.onKey(e);
+        if(!(this.props.preventInputConflict && (this.targetsBlacklist.indexOf(e.target.tagName.toLowerCase()) > -1))) this.props.onKey(e);
     }
 
     componentDidMount() {
@@ -44,7 +44,7 @@ KeybindingComponent.defaultProps = {
 KeybindingComponent.propTypes = {
     onKey                : PropTypes.func,
     type                 : PropTypes.string,
-    target               : PropTypes.oneOfType([React.PropTypes.string, React.PropTypes.object ]),
+    target               : PropTypes.oneOfType(PropTypes.string, PropTypes.object]),
     preventInputConflict : PropTypes.bool,
     preventDefault       : PropTypes.bool,
     stopPropagation      : PropTypes.bool
