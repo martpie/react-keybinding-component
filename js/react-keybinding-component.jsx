@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { PropTypes } from 'prop-types';
+import PropTypes from 'prop-types';
 
 class KeybindingComponent extends Component {
 
@@ -44,7 +44,7 @@ KeybindingComponent.defaultProps = {
 KeybindingComponent.propTypes = {
     onKey                : PropTypes.func,
     type                 : PropTypes.string,
-    target               : PropTypes.oneOfType(PropTypes.string, PropTypes.object]),
+    target               : PropTypes.oneOfType([PropTypes.string, PropTypes.object]),
     preventInputConflict : PropTypes.bool,
     preventDefault       : PropTypes.bool,
     stopPropagation      : PropTypes.bool
