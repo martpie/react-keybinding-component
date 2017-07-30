@@ -4,6 +4,7 @@
   "description": "A React keybinding component, usable with es6, no mixin",
   "main": "dist/react-keybinding-component.js",
   "scripts": {
+    "compile": "gulp",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {

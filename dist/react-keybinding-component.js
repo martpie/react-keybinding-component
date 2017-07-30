@@ -34,7 +34,7 @@ var KeybindingComponent = function (_Component) {
 
         _this.state = {};
         _this.onKey = _this.onKey.bind(_this);
-        _this.blacklistTargets = ['textarea', 'input', 'select'];
+        _this.targetsBlacklist = ['textarea', 'input', 'select'];
         return _this;
     }
 
@@ -48,7 +48,7 @@ var KeybindingComponent = function (_Component) {
         value: function onKey(e) {
             if (this.props.preventDefault) e.preventDefault();
             if (this.props.stopPropagation) e.stopPropagation();
-            if (!(this.props.preventInputConflict && this.blacklistTargets.indexOf(e.target.tagName.toLowerCase()) > -1)) this.props.onKey(e);
+            if (!(this.props.preventInputConflict && this.targetsBlacklist.indexOf(e.target.tagName.toLowerCase()) > -1)) this.props.onKey(e);
         }
     }, {
         key: 'componentDidMount',
