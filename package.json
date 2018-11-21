@@ -1,7 +1,7 @@
 {
   "name": "react-keybinding-component",
   "version": "0.5.1",
-  "description": "A React keybinding component, usable with es6, no mixin",
+  "description": "A React keybinding component",
   "main": "dist/react-keybinding-component.js",
   "scripts": {
     "compile": "gulp",
@@ -9,7 +9,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/KeitIG/react-keybinding-component.git"
+    "url": "git+https://github.com/martpie/react-keybinding-component.git"
   },
   "keywords": [
     "react",
@@ -23,12 +23,12 @@
     "es6",
     "mixin"
   ],
-  "author": "Pierre de la Martinière",
-  "license": "ISC",
+  "author": "Pierre de la Martinière <pierre.de.la.martiniere@gmail.com>",
+  "license": "MIT",
   "bugs": {
-    "url": "https://github.com/KeitIG/react-keybinding-component/issues"
+    "url": "https://github.com/martpie/react-keybinding-component/issues"
   },
-  "homepage": "https://github.com/KeitIG/react-keybinding-component#readme",
+  "homepage": "https://github.com/martpie/react-keybinding-component#readme",
   "devDependencies": {
     "babel-preset-es2015": "^6.1.18",
     "babel-preset-react": "^6.1.18",
@@ -37,6 +37,6 @@
     "gulp-rename": "^1.2.2"
   },
   "dependencies": {
-    "prop-types": "^15.5.10"
+    "prop-types": "^15.6.2"
   }
 }
