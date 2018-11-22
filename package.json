@@ -3,7 +3,9 @@
   "version": "0.5.2",
   "description": "A React keybinding component",
   "main": "dist/keybinding.js",
-  "files": ["dist"],
+  "files": [
+    "dist"
+  ],
   "scripts": {
     "preversion": "npm run test",
     "prepublishOnly": "npm run build",
