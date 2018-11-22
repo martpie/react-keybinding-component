@@ -1,6 +1,6 @@
 {
   "name": "react-keybinding-component",
-  "version": "0.5.2",
+  "version": "1.0.0",
   "description": "A React keybinding component",
   "main": "dist/keybinding.js",
   "files": [
