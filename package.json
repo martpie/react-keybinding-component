@@ -7,7 +7,6 @@
     "dist"
   ],
   "scripts": {
-    "preversion": "npm run test",
     "prepublishOnly": "npm run build",
     "build": "tsc",
     "test": "jest",
