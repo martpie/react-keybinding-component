@@ -9,8 +9,7 @@ react-keybinding-component is a component that will help you set up keybindings 
 
 Import it in your project:
 ``` javascript
-import KeyBinding from 'react-keybinding-component'; // ES6
-var KeyBinding = require('react-keybinding-component'); // ES5
+import KeyBinding from 'react-keybinding-component';
 ```
 
 Get the eventKey keyCode and log it
@@ -20,7 +19,7 @@ Get the eventKey keyCode and log it
 
 Get the eventKey keyCode and log it on `keyUp` on the window element
 ``` JSX
-<KeyBinding onKey={ (e) => { console.log(e.keyCode) } } type='keyup' elem={ window } />
+<KeyBinding onKey={ (e) => { console.log(e.keyCode) } } type='keyup' target={ window } />
 ```
 
 Have a look at options.
