@@ -30,7 +30,7 @@ All properties except `onKey` are optional.
 
 | Property               | Description                                 | Default value |
 |------------------------|---------------------------------------------|---------------|
-| `onKey` (required)     | the function executed after a key event     | () => {}      |
+| `onKey` (required)     | the function executed after a key event     | n/a           |
 | `type`                 | keyup or keydown                            | `'keydown'`   |
 | `target`               | the element you want to attach the event to, it can be an **existing** DOM element or a CSS selector (in that case, you will need to add a `tabIndex='0'` to your element, otherwise the event won't be caught) | `document`    |
 | `preventInputConflict` | prevent onKey from firing if you have an onChange on an input, a textarea or a select | `false` |
