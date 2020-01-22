@@ -9,8 +9,8 @@
   "scripts": {
     "prepublishOnly": "npm run build",
     "build": "tsc",
-    "test": "jest",
-    "test:watch": "jest --watch"
+    "test": "jest --passWithNoTests",
+    "test:watch": "jest --watch --passWithNoTests"
   },
   "repository": {
     "type": "git",
@@ -35,16 +35,16 @@
   },
   "homepage": "https://github.com/martpie/react-keybinding-component#readme",
   "devDependencies": {
-    "@types/jest": "^23.3.9",
-    "@types/prop-types": "^15.5.6",
-    "@types/react": "^16.7.6",
-    "@types/react-dom": "^16.0.10",
-    "jest": "^23.6.0",
-    "react": "^16.6.3",
-    "ts-jest": "^23.10.4",
-    "typescript": "^3.1.6"
+    "@types/jest": "^24.9.0",
+    "@types/prop-types": "^15.7.3",
+    "@types/react": "^16.9.18",
+    "@types/react-dom": "^16.9.5",
+    "jest": "^25.1.0",
+    "react": "^16.12.0",
+    "ts-jest": "^24.3.0",
+    "typescript": "^3.7.5"
   },
   "dependencies": {
-    "prop-types": "^15.6.2"
+    "prop-types": "^15.7.2"
   }
 }
