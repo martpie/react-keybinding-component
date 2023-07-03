@@ -1,26 +1,20 @@
 {
   "compileOnSave": false,
   "compilerOptions": {
-    "target": "es3",
-    "module": "commonjs",
-    "jsx": "react",
+    "esModuleInterop": true,
+    "target": "ES2022",
+    "module": "ES2022",
     "moduleResolution": "node",
     "noUnusedLocals": true,
     "noUnusedParameters": true,
     "removeComments": false,
     "preserveConstEnums": true,
+    "allowSyntheticDefaultImports": true,
     "sourceMap": true,
     "strict": true,
     "outDir": "dist",
     "declaration": true,
-    "lib": [
-      "es2017",
-      "dom"
-    ]
+    "lib": ["es2017", "DOM"]
   },
-  "exclude": [
-    "**/node_modules",
-    "**/__tests__/**",
-    "dist/**"
-  ]
+  "exclude": ["**/node_modules", "**/__tests__/**", "dist/**"]
 }
