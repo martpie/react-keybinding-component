@@ -43,22 +43,25 @@ export default function Keybinding(props: KeybindingProps) {
     stopPropagation = false,
   } = props;
 
-  const onKey = useCallback((e: Event) => {
-    // is actually a KeyboardEvent
-    if (preventDefault) e.preventDefault();
-    if (stopPropagation) e.stopPropagation();
+  const onKey = useCallback(
+    (e: Event) => {
+      // is actually a KeyboardEvent
+      if (preventDefault) e.preventDefault();
+      if (stopPropagation) e.stopPropagation();
 
-    const target = e.target as HTMLElement | null;
+      const target = e.target as HTMLElement | null;
 
-    if (target) {
-      const canDispatch = !(
-        preventInputConflict &&
-        TARGETS_BLACKLIST.indexOf(target.tagName.toLowerCase()) > -1
-      );
+      if (target) {
+        const canDispatch = !(
+          preventInputConflict &&
+          TARGETS_BLACKLIST.indexOf(target.tagName.toLowerCase()) > -1
+        );
 
-      if (canDispatch) onKey(e);
-    }
-  }, []);
+        if (canDispatch) onKey(e);
+      }
+    },
+    [preventDefault, stopPropagation, preventInputConflict]
+  );
 
   useEffect(() => {
     const actualTarget = getTarget(target);
@@ -67,7 +70,7 @@ export default function Keybinding(props: KeybindingProps) {
     return () => {
       actualTarget.removeEventListener(type, onKey);
     };
-  });
+  }, [target, type, onKey]);
 
   return null;
 }
