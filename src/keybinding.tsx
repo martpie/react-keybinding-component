@@ -1,12 +1,12 @@
 import { useCallback, useEffect } from "react";
 
 export type KeybindingProps = {
-  onKey: (e: Event) => void;
-  type: "keydown" | "keyup";
-  target: string | HTMLElement | Document | Window;
-  preventInputConflict: boolean;
-  preventDefault: boolean;
-  stopPropagation: boolean;
+  onKey: (e: KeyboardEvent) => void;
+  type?: "keydown" | "keyup";
+  target?: string | HTMLElement | Document | Window;
+  preventInputConflict?: boolean;
+  preventDefault?: boolean;
+  stopPropagation?: boolean;
 };
 
 const TARGETS_BLACKLIST = ["textarea", "input", "select"];
@@ -15,10 +15,10 @@ const TARGETS_BLACKLIST = ["textarea", "input", "select"];
  * Get the actual target to which we should attach the event
  */
 function getTarget(
-  target: KeybindingProps["target"]
-): Element | HTMLElement | Document | Window {
+  target: NonNullable<KeybindingProps["target"]>
+): HTMLElement | Document | Window {
   if (typeof target === "string") {
-    const element = document.querySelector(target);
+    const element = document.querySelector<HTMLElement>(target);
     if (!element) {
       throw new Error(
         `Selector "${target}" returned null (on keybinding mount)`
@@ -36,6 +36,7 @@ function getTarget(
  */
 export default function Keybinding(props: KeybindingProps) {
   const {
+    onKey,
     type = "keydown",
     target = document, // Probably will make server-side rendering crash
     preventInputConflict = false,
@@ -43,8 +44,8 @@ export default function Keybinding(props: KeybindingProps) {
     stopPropagation = false,
   } = props;
 
-  const onKey = useCallback(
-    (e: Event) => {
+  const onKeyEvent = useCallback(
+    (e: KeyboardEvent) => {
       // is actually a KeyboardEvent
       if (preventDefault) e.preventDefault();
       if (stopPropagation) e.stopPropagation();
@@ -52,6 +53,7 @@ export default function Keybinding(props: KeybindingProps) {
       const target = e.target as HTMLElement | null;
 
       if (target) {
+        // console.log(target.tagName.toLowerCase());
         const canDispatch = !(
           preventInputConflict &&
           TARGETS_BLACKLIST.indexOf(target.tagName.toLowerCase()) > -1
@@ -60,17 +62,22 @@ export default function Keybinding(props: KeybindingProps) {
         if (canDispatch) onKey(e);
       }
     },
-    [preventDefault, stopPropagation, preventInputConflict]
+    [preventDefault, stopPropagation, preventInputConflict, onKey]
   );
 
   useEffect(() => {
     const actualTarget = getTarget(target);
-    actualTarget.addEventListener(type, onKey);
+
+    // eslint-disable-next-line
+    // @ts-ignore
+    actualTarget.addEventListener(type, onKeyEvent);
 
     return () => {
-      actualTarget.removeEventListener(type, onKey);
+      // eslint-disable-next-line
+      // @ts-ignore
+      actualTarget.removeEventListener(type, onKeyEvent);
     };
-  }, [target, type, onKey]);
+  }, [target, type, onKeyEvent]);
 
   return null;
 }
