@@ -1,16 +1,31 @@
 {
   "name": "react-keybinding-component",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "description": "A React keybinding component",
-  "main": "dist/keybinding.js",
+  "type": "module",
+  "exports": {
+    ".": {
+      "import": {
+        "types": "./dist/keybinding.d.ts",
+        "default": "./dist/keybinding.js"
+      },
+      "require": {
+        "types": "./dist/keybinding.d.cts",
+        "default": "./dist/keybinding.cjs"
+      }
+    }
+  },
+  "main": "./dist/keybinding.js",
+  "types": "./dist/keybinding.d.ts",
   "files": [
     "dist"
   ],
   "scripts": {
-    "prepublishOnly": "npm run build",
-    "build": "tsc",
-    "test": "jest --passWithNoTests",
-    "test:watch": "jest --watch --passWithNoTests"
+    "prepublishOnly": "yarn publint && yarn attw -P && yarn build",
+    "build": "tsup src/keybinding.tsx --format esm,cjs --dts --sourcemap",
+    "test:typings": "tsc --noEmit --project ./tsconfig.json",
+    "test:lint": "eslint . --ext .tsx,.ts,.js",
+    "test:formatting": "prettier --check \"./**/*.{ts,tsx,js}\""
   },
   "repository": {
     "type": "git",
@@ -35,16 +50,22 @@
   },
   "homepage": "https://github.com/martpie/react-keybinding-component#readme",
   "devDependencies": {
-    "@types/jest": "^24.9.0",
-    "@types/prop-types": "^15.7.3",
-    "@types/react": "^16.9.18",
-    "@types/react-dom": "^16.9.5",
-    "jest": "^25.1.0",
-    "react": "^16.12.0",
-    "ts-jest": "^24.3.0",
-    "typescript": "^3.7.5"
-  },
-  "dependencies": {
-    "prop-types": "^15.7.2"
+    "@arethetypeswrong/cli": "^0.4.2",
+    "@types/prop-types": "^15.7.5",
+    "@types/react": "^18.2.14",
+    "@types/react-dom": "^18.2.6",
+    "@typescript-eslint/eslint-plugin": "^5.61.0",
+    "@typescript-eslint/parser": "^5.61.0",
+    "eslint": "^8.44.0",
+    "eslint-config-prettier": "^8.8.0",
+    "eslint-plugin-prettier": "^4.2.1",
+    "eslint-plugin-react": "^7.32.2",
+    "eslint-plugin-react-hooks": "^4.6.0",
+    "prettier": "^2.8.8",
+    "prettier-eslint": "^15.0.1",
+    "publint": "^0.1.15",
+    "react": "^18.2.0",
+    "tsup": "^7.1.0",
+    "typescript": "^5.1.6"
   }
 }
