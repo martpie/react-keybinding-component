@@ -22,7 +22,7 @@
   ],
   "scripts": {
     "prepublishOnly": "yarn publint && yarn attw -P && yarn build",
-    "build": "tsup src/keybinding.tsx --format esm,cjs --dts --sourcemap",
+    "build": "tsup src/keybinding.tsx --format esm,cjs --dts --sourcemap --external react",
     "test:typings": "tsc --noEmit --project ./tsconfig.json",
     "test:lint": "eslint . --ext .tsx,.ts,.js",
     "test:formatting": "prettier --check \"./**/*.{ts,tsx,js}\""
