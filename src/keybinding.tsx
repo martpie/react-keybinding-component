@@ -1,84 +1,73 @@
-import * as React from "react";
+import { useCallback, useEffect } from "react";
 
-interface KeybindingProps {
-  onKey: (e: KeyboardEvent) => void;
+export type KeybindingProps = {
+  onKey: (e: Event) => void;
   type: "keydown" | "keyup";
   target: string | HTMLElement | Document | Window;
   preventInputConflict: boolean;
   preventDefault: boolean;
   stopPropagation: boolean;
+};
+
+const TARGETS_BLACKLIST = ["textarea", "input", "select"];
+
+/**
+ * Get the actual target to which we should attach the event
+ */
+function getTarget(
+  target: KeybindingProps["target"]
+): Element | HTMLElement | Document | Window {
+  if (typeof target === "string") {
+    const element = document.querySelector(target);
+    if (!element) {
+      throw new Error(
+        `Selector "${target}" returned null (on keybinding mount)`
+      );
+    }
+
+    return element;
+  }
+
+  return target;
 }
 
-class Keybinding extends React.Component<KeybindingProps> {
-  static defaultProps = {
-    type: "keydown",
-    target: document, // Probably will make server-side rendering crash
-    preventInputConflict: false,
-    preventDefault: false,
-    stopPropagation: false,
-  };
+/**
+ * Attaches an event to the DOM
+ */
+export default function Keybinding(props: KeybindingProps) {
+  const {
+    type = "keydown",
+    target = document, // Probably will make server-side rendering crash
+    preventInputConflict = false,
+    preventDefault = false,
+    stopPropagation = false,
+  } = props;
 
-  targetsBlacklist: string[] = ["textarea", "input", "select"];
-
-  constructor(props: KeybindingProps) {
-    super(props);
-    this.state = {};
-    this.onKey = this.onKey.bind(this);
-  }
-
-  render() {
-    return null;
-  }
-
-  onKey(e: Event) {
+  const onKey = useCallback((e: Event) => {
     // is actually a KeyboardEvent
-    if (this.props.preventDefault) e.preventDefault();
-    if (this.props.stopPropagation) e.stopPropagation();
+    if (preventDefault) e.preventDefault();
+    if (stopPropagation) e.stopPropagation();
 
     const target = e.target as HTMLElement | null;
 
     if (target) {
       const canDispatch = !(
-        this.props.preventInputConflict &&
-        this.targetsBlacklist.indexOf(target.tagName.toLowerCase()) > -1
+        preventInputConflict &&
+        TARGETS_BLACKLIST.indexOf(target.tagName.toLowerCase()) > -1
       );
 
-      if (canDispatch && this.props.onKey) this.props.onKey(e as KeyboardEvent);
+      if (canDispatch) onKey(e);
     }
-  }
+  }, []);
 
-  componentDidMount() {
-    const { target, type } = this.props;
+  useEffect(() => {
+    const actualTarget = getTarget(target);
+    actualTarget.addEventListener(type, onKey);
 
-    if (typeof target === "string") {
-      const element = document.querySelector(target);
-      if (!element)
-        throw new Error(
-          `Selector "${target}" returned null (on keybinding mount)`
-        );
+    return () => {
+      actualTarget.removeEventListener(type, onKey);
+    };
+  });
 
-      element.addEventListener(type, this.onKey);
-    } else if (typeof target === "object") {
-      target.addEventListener(type, this.onKey);
-    }
-  }
-
-  componentWillUnmount() {
-    const { target, type } = this.props;
-
-    if (typeof target === "string") {
-      const element = document.querySelector(target);
-
-      if (!element)
-        throw new Error(
-          `Selector "${target}" returned null (on keybinding unmount)`
-        );
-
-      element.removeEventListener(type, this.onKey);
-    } else if (typeof target === "object") {
-      target.removeEventListener(type, this.onKey);
-    }
-  }
+  return null;
 }
-
-export default Keybinding;
