@@ -5,6 +5,7 @@ export type KeybindingProps = {
   type?: 'keydown' | 'keyup';
   target?: string | HTMLElement | Document | Window;
   preventInputConflict?: boolean;
+  preventContentEditableConflict?: boolean;
   preventDefault?: boolean;
   stopPropagation?: boolean;
 };
@@ -40,6 +41,7 @@ export default function Keybinding(props: KeybindingProps) {
     type = 'keydown',
     target = document, // Probably will make server-side rendering crash
     preventInputConflict = false,
+    preventContentEditableConflict = false,
     preventDefault = false,
     stopPropagation = false,
   } = props;
@@ -53,15 +55,29 @@ export default function Keybinding(props: KeybindingProps) {
       const target = e.target as HTMLElement | null;
 
       if (target) {
-        const canDispatch = !(
+        let canDispatch = true;
+
+        if (
           preventInputConflict &&
           TARGETS_BLACKLIST.indexOf(target.tagName.toLowerCase()) > -1
-        );
+        ) {
+          canDispatch = false;
+        }
+
+        if (preventContentEditableConflict && checkIfContentEditable(target)) {
+          canDispatch = false;
+        }
 
         if (canDispatch) onKey(e);
       }
     },
-    [preventDefault, stopPropagation, preventInputConflict, onKey],
+    [
+      preventDefault,
+      stopPropagation,
+      preventInputConflict,
+      preventContentEditableConflict,
+      onKey,
+    ],
   );
 
   useEffect(() => {
@@ -77,4 +93,20 @@ export default function Keybinding(props: KeybindingProps) {
   }, [target, type, onKeyEvent]);
 
   return null;
+}
+
+/**
+ * Return true if the current DOM node or one of its parent has the contenteditable
+ * attribute activated
+ */
+function checkIfContentEditable(node: HTMLElement | null) {
+  if (node === null) {
+    return false;
+  }
+
+  if (node.getAttribute('contenteditable') === 'true') {
+    return true;
+  }
+
+  return checkIfContentEditable(node.parentElement);
 }
