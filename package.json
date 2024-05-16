@@ -1,6 +1,6 @@
 {
   "name": "react-keybinding-component",
-  "version": "2.0.2",
+  "version": "2.1.0",
   "description": "A React keybinding component",
   "type": "module",
   "exports": {
@@ -17,7 +17,9 @@
   },
   "main": "./dist/keybinding.js",
   "types": "./dist/keybinding.d.ts",
-  "files": ["dist"],
+  "files": [
+    "dist"
+  ],
   "scripts": {
     "prepublishOnly": "yarn publint && yarn attw -P && yarn build",
     "build": "tsup src/keybinding.tsx --format esm,cjs --dts --sourcemap --external react",
