@@ -20,13 +20,10 @@ jobs:
       - name: Install dependencies
         run: yarn
 
-      - name: "Test: formatting"
-        run: "yarn run test:formatting"
-
       - name: "Test: typings"
         run: "yarn run test:typings"
 
-      - name: "Test: TS/JS linting"
+      - name: "Test: TS/JS linting + formatting"
         run: "yarn run test:lint"
 
       - name: "Build"

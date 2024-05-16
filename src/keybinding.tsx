@@ -1,27 +1,27 @@
-import { useCallback, useEffect } from "react";
+import { useCallback, useEffect } from 'react';
 
 export type KeybindingProps = {
   onKey: (e: KeyboardEvent) => void;
-  type?: "keydown" | "keyup";
+  type?: 'keydown' | 'keyup';
   target?: string | HTMLElement | Document | Window;
   preventInputConflict?: boolean;
   preventDefault?: boolean;
   stopPropagation?: boolean;
 };
 
-const TARGETS_BLACKLIST = ["textarea", "input", "select"];
+const TARGETS_BLACKLIST = ['textarea', 'input', 'select'];
 
 /**
  * Get the actual target to which we should attach the event
  */
 function getTarget(
-  target: NonNullable<KeybindingProps["target"]>
+  target: NonNullable<KeybindingProps['target']>,
 ): HTMLElement | Document | Window {
-  if (typeof target === "string") {
+  if (typeof target === 'string') {
     const element = document.querySelector<HTMLElement>(target);
     if (!element) {
       throw new Error(
-        `Selector "${target}" returned null (on keybinding mount)`
+        `Selector "${target}" returned null (on keybinding mount)`,
       );
     }
 
@@ -37,7 +37,7 @@ function getTarget(
 export default function Keybinding(props: KeybindingProps) {
   const {
     onKey,
-    type = "keydown",
+    type = 'keydown',
     target = document, // Probably will make server-side rendering crash
     preventInputConflict = false,
     preventDefault = false,
@@ -62,7 +62,7 @@ export default function Keybinding(props: KeybindingProps) {
         if (canDispatch) onKey(e);
       }
     },
-    [preventDefault, stopPropagation, preventInputConflict, onKey]
+    [preventDefault, stopPropagation, preventInputConflict, onKey],
   );
 
   useEffect(() => {
