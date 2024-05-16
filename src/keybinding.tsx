@@ -53,7 +53,6 @@ export default function Keybinding(props: KeybindingProps) {
       const target = e.target as HTMLElement | null;
 
       if (target) {
-        // console.log(target.tagName.toLowerCase());
         const canDispatch = !(
           preventInputConflict &&
           TARGETS_BLACKLIST.indexOf(target.tagName.toLowerCase()) > -1
@@ -68,12 +67,10 @@ export default function Keybinding(props: KeybindingProps) {
   useEffect(() => {
     const actualTarget = getTarget(target);
 
-    // eslint-disable-next-line
     // @ts-ignore
     actualTarget.addEventListener(type, onKeyEvent);
 
     return () => {
-      // eslint-disable-next-line
       // @ts-ignore
       actualTarget.removeEventListener(type, onKeyEvent);
     };
