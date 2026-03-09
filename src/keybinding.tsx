@@ -3,7 +3,12 @@ import { type RefObject, useCallback, useEffect } from 'react';
 export type KeybindingProps = {
   onKey: (e: KeyboardEvent) => void;
   type?: 'keydown' | 'keyup';
-  target?: string | HTMLElement | Document | Window | RefObject<HTMLElement>;
+  target?:
+    | string
+    | HTMLElement
+    | Document
+    | Window
+    | RefObject<HTMLElement | null>;
   preventInputConflict?: boolean;
   preventContentEditableConflict?: boolean;
   preventDefault?: boolean;
@@ -14,7 +19,7 @@ const TARGETS_BLACKLIST = ['textarea', 'input', 'select'];
 
 function isRefObject(
   target: NonNullable<KeybindingProps['target']>,
-): target is RefObject<HTMLElement> {
+): target is RefObject<HTMLElement | null> {
   return typeof target === 'object' && 'current' in target;
 }
 
