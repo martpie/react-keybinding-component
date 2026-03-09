@@ -39,7 +39,7 @@ All properties except `onKey` are optional.
 
 | Property                         | Description                                                                                                          | Default value |
 |----------------------------------|----------------------------------------------------------------------------------------------------------------------|---------------|
-| `onKey` (required)               | the function executed after a key event                                                                              | n/a           |
+| `onKey` (required)               | the function executed after a key event. You're responsible for keeping is stable                                    | n/a           |
 | `type`                           | keyup or keydown                                                                                                     | `'keydown'`   |
 | `target`                         | the element you want to attach the event to: an **existing** DOM element, a CSS selector (you will need to add `tabIndex='0'` to your element, otherwise the event won't be caught), or a **React ref** (`RefObject<HTMLElement>`) — if a ref is passed and `.current` is `null`, the listener is silently skipped | `document`    |
 | `preventInputConflict`           | prevent onKey from firing if you have an onChange on an input, a textarea or a select                                | `false`       |
