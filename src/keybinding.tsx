@@ -59,18 +59,14 @@ export default function Keybinding(props: KeybindingProps) {
 
   const onKeyEvent = useCallback(
     (e: KeyboardEvent) => {
-      // is actually a KeyboardEvent
-      if (preventDefault) e.preventDefault();
-      if (stopPropagation) e.stopPropagation();
-
       const target = e.target as HTMLElement | null;
 
-      if (target) {
+      if (target != null) {
         let canDispatch = true;
 
         if (
           preventInputConflict &&
-          TARGETS_BLACKLIST.indexOf(target.tagName.toLowerCase()) > -1
+          TARGETS_BLACKLIST.includes(target.tagName.toLowerCase())
         ) {
           canDispatch = false;
         }
@@ -79,7 +75,11 @@ export default function Keybinding(props: KeybindingProps) {
           canDispatch = false;
         }
 
-        if (canDispatch) onKey(e);
+        if (canDispatch) {
+          if (preventDefault) e.preventDefault();
+          if (stopPropagation) e.stopPropagation();
+          onKey(e);
+        }
       }
     },
     [
