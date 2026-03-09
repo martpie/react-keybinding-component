@@ -22,6 +22,15 @@ Get the eventKey keyCode and log it on `keyUp` on the window element
 <KeyBinding onKey={ (e) => { console.log(e.keyCode) } } type='keyup' target={ window } />
 ```
 
+Scope the listener to a container element via a React ref (only fires when focus is inside the container)
+``` JSX
+const containerRef = useRef(null);
+
+<div ref={containerRef}>
+  <KeyBinding onKey={ (e) => { console.log(e.keyCode) } } target={ containerRef } />
+</div>
+```
+
 Have a look at options.
 
 ### Options
@@ -32,7 +41,7 @@ All properties except `onKey` are optional.
 |----------------------------------|----------------------------------------------------------------------------------------------------------------------|---------------|
 | `onKey` (required)               | the function executed after a key event                                                                              | n/a           |
 | `type`                           | keyup or keydown                                                                                                     | `'keydown'`   |
-| `target`                         | the element you want to attach the event to, it can be an **existing** DOM element or a CSS selector (in that case, you will need to add a `tabIndex='0'` to your element, otherwise the event won't be caught) | `document`    |
+| `target`                         | the element you want to attach the event to: an **existing** DOM element, a CSS selector (you will need to add `tabIndex='0'` to your element, otherwise the event won't be caught), or a **React ref** (`RefObject<HTMLElement>`) — if a ref is passed and `.current` is `null`, the listener is silently skipped | `document`    |
 | `preventInputConflict`           | prevent onKey from firing if you have an onChange on an input, a textarea or a select                                | `false`       |
 | `preventContentEditableConflict` | prevent onKey from firing if the user is editing the DOM via contenteditable="true", usually used by WYSIWYG editors | `false`       |
 | `preventDefault`                 | prevent event default                                                                                                | `false`       |
