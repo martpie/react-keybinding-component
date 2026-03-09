@@ -1,4 +1,4 @@
-import { type RefObject, useCallback, useEffect } from 'react';
+import { type RefObject, useEffect } from 'react';
 
 export type KeybindingProps = {
   onKey: (e: KeyboardEvent) => void;
@@ -62,8 +62,12 @@ export default function Keybinding(props: KeybindingProps) {
     stopPropagation = false,
   } = props;
 
-  const onKeyEvent = useCallback(
-    (e: KeyboardEvent) => {
+  useEffect(() => {
+    const actualTarget = getTarget(target);
+
+    if (!actualTarget) return;
+
+    const onKeyEvent = (e: KeyboardEvent) => {
       const target = e.target as HTMLElement | null;
 
       if (target != null) {
@@ -86,27 +90,22 @@ export default function Keybinding(props: KeybindingProps) {
           onKey(e);
         }
       }
-    },
-    [
-      preventDefault,
-      stopPropagation,
-      preventInputConflict,
-      preventContentEditableConflict,
-      onKey,
-    ],
-  );
-
-  useEffect(() => {
-    const actualTarget = getTarget(target);
-
-    if (!actualTarget) return;
+    };
 
     actualTarget.addEventListener(type, onKeyEvent as EventListener);
 
     return () => {
       actualTarget.removeEventListener(type, onKeyEvent as EventListener);
     };
-  }, [target, type, onKeyEvent]);
+  }, [
+    target,
+    type,
+    onKey,
+    preventDefault,
+    stopPropagation,
+    preventInputConflict,
+    preventContentEditableConflict,
+  ]);
 
   return null;
 }
