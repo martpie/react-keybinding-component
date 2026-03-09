@@ -83,12 +83,10 @@ export default function Keybinding(props: KeybindingProps) {
   useEffect(() => {
     const actualTarget = getTarget(target);
 
-    // @ts-ignore
-    actualTarget.addEventListener(type, onKeyEvent);
+    actualTarget.addEventListener(type, onKeyEvent as EventListener);
 
     return () => {
-      // @ts-ignore
-      actualTarget.removeEventListener(type, onKeyEvent);
+      actualTarget.removeEventListener(type, onKeyEvent as EventListener);
     };
   }, [target, type, onKeyEvent]);
 

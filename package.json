@@ -50,14 +50,14 @@
   },
   "homepage": "https://github.com/martpie/react-keybinding-component#readme",
   "devDependencies": {
-    "@arethetypeswrong/cli": "^0.15.3",
-    "@biomejs/biome": "1.7.3",
-    "@types/prop-types": "^15.7.12",
-    "@types/react": "^18.3.2",
-    "@types/react-dom": "^18.3.0",
-    "publint": "^0.2.7",
-    "react": "^18.3.1",
-    "tsup": "^8.0.2",
-    "typescript": "^5.4.5"
+    "@arethetypeswrong/cli": "^0.18.2",
+    "@biomejs/biome": "2.4.6",
+    "@types/prop-types": "^15.7.15",
+    "@types/react": "^19.2.14",
+    "@types/react-dom": "^19.2.3",
+    "publint": "^0.3.18",
+    "react": "^19.2.4",
+    "tsup": "^8.5.1",
+    "typescript": "^5.9.3"
   }
 }
