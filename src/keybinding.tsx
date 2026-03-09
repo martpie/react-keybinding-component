@@ -1,9 +1,9 @@
-import { useCallback, useEffect } from 'react';
+import { type RefObject, useCallback, useEffect } from 'react';
 
 export type KeybindingProps = {
   onKey: (e: KeyboardEvent) => void;
   type?: 'keydown' | 'keyup';
-  target?: string | HTMLElement | Document | Window;
+  target?: string | HTMLElement | Document | Window | RefObject<HTMLElement>;
   preventInputConflict?: boolean;
   preventContentEditableConflict?: boolean;
   preventDefault?: boolean;
@@ -12,12 +12,19 @@ export type KeybindingProps = {
 
 const TARGETS_BLACKLIST = ['textarea', 'input', 'select'];
 
+function isRefObject(
+  target: NonNullable<KeybindingProps['target']>,
+): target is RefObject<HTMLElement> {
+  return typeof target === 'object' && 'current' in target;
+}
+
 /**
- * Get the actual target to which we should attach the event
+ * Get the actual target to which we should attach the event.
+ * Returns null if a ref is passed but not yet mounted.
  */
 function getTarget(
   target: NonNullable<KeybindingProps['target']>,
-): HTMLElement | Document | Window {
+): HTMLElement | Document | Window | null {
   if (typeof target === 'string') {
     const element = document.querySelector<HTMLElement>(target);
     if (!element) {
@@ -27,6 +34,10 @@ function getTarget(
     }
 
     return element;
+  }
+
+  if (isRefObject(target)) {
+    return target.current;
   }
 
   return target;
@@ -82,6 +93,8 @@ export default function Keybinding(props: KeybindingProps) {
 
   useEffect(() => {
     const actualTarget = getTarget(target);
+
+    if (!actualTarget) return;
 
     actualTarget.addEventListener(type, onKeyEvent as EventListener);
 
