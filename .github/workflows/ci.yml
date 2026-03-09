@@ -18,19 +18,19 @@ jobs:
           node-version: ${{ matrix.node }}
 
       - name: Install dependencies
-        run: yarn
+        run: npm ci
 
       - name: "Test: typings"
-        run: "yarn run test:typings"
+        run: "npm run test:typings"
 
       - name: "Test: TS/JS linting + formatting"
-        run: "yarn run test:lint"
+        run: "npm run test:lint"
 
       - name: "Build"
-        run: yarn build
+        run: npm run build
 
       - name: "Publint"
-        run: yarn publint
+        run: npm run publint
 
       - name: "Are the types wrong?"
-        run: yarn attw -P
+        run: npm run attw -P
