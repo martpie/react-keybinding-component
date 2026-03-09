@@ -21,11 +21,13 @@
     "dist"
   ],
   "scripts": {
-    "prepublishOnly": "yarn publint && yarn attw -P && yarn build",
+    "prepublishOnly": "npm run publint && npm run attw -P && npm run build",
     "build": "tsup src/keybinding.tsx --format esm,cjs --dts --sourcemap --external react",
     "test:typings": "tsc --noEmit --project ./tsconfig.json",
     "test:lint": "biome ci .",
-    "test:lint:fix": "biome check --apply ."
+    "test:lint:fix": "biome check --apply .",
+    "publint": "publint",
+    "attw": " attw -P"
   },
   "repository": {
     "type": "git",
