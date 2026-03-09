@@ -107,17 +107,10 @@ export default function Keybinding(props: KeybindingProps) {
 }
 
 /**
- * Return true if the current DOM node or one of its parent has the contenteditable
- * attribute activated
+ * Return true if the current DOM node or one of its parents has contenteditable activated
  */
-function checkIfContentEditable(node: HTMLElement | null) {
-  if (node === null) {
-    return false;
-  }
-
-  if (node.getAttribute('contenteditable') === 'true') {
-    return true;
-  }
-
-  return checkIfContentEditable(node.parentElement);
+function checkIfContentEditable(node: HTMLElement) {
+  return (
+    node.closest('[contenteditable]:not([contenteditable="false"])') !== null
+  );
 }
